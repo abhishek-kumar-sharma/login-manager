@@ -1,3 +1,24 @@
 <template>
-    
+    <!-- Container start -->
+    <div id="main-container">
+        <template if:true={showHeader}>
+        <div id="header-container">
+
+        </div>
+
+        <template if:true={showLogin}>
+            <div id="login-form-container">
+
+            </div>
+        </template>
+
+        <template if:true={showDataTable}>
+            <div id="data-table-container">
+                
+            </div>
+        </template>
+    </template>
+
+    </div>
+    <!-- Container end -->
 </template>
