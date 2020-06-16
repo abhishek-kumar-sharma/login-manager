@@ -8,72 +8,30 @@
         </template>
 
         <template if:true={showLogin}>
-
-            
-
             <div id="login-form-container">
-                <lightning-layout multiple-rows="true" class="slds-m-top--xx-large">
-                    <!-- Company Logo section start -->
-                    <lightning-layout-item size="12" small-device-size="5" medium-device-size="5" large-device-size="5">
-                    </lightning-layout-item>
-                    <lightning-layout-item size="12" small-device-size="2" medium-device-size="2" large-device-size="2">
+                <div class="slds-grid slds-m-top--xx-large slds-grid_vertical slds-grid_vertical-align-center slds-grid_align-center">
+                    <div class="slds-col">
                         <lightning-icon class="slds-align_absolute-center" icon-name="action:approval"
                             alternative-text="Approved" title="Approved">
                         </lightning-icon>
-                    </lightning-layout-item>
-                    <lightning-layout-item size="12" small-device-size="5" medium-device-size="5" large-device-size="5">
-                    </lightning-layout-item>
-                    <!-- Company Logo section end  -->
-                </lightning-layout>
-
-                <div id="input-section-container">
-                    <lightning-layout multiple-rows="true" class="slds-m-top--small">
-                        <!-- user name section start  -->
-                        <lightning-layout-item size="12" small-device-size="5" medium-device-size="5"
-                            large-device-size="5">
-                        </lightning-layout-item>
-                        <lightning-layout-item size="12" class="slds-align_absolute-center" small-device-size="2"
-                            medium-device-size="2" large-device-size="2">
-                            <lightning-input type="text" class="usernameClass" name="username" onkeyup={setInputValue}
-                                label="User name"></lightning-input>
-                        </lightning-layout-item>
-                        <lightning-layout-item size="12" small-device-size="5" medium-device-size="5"
-                            large-device-size="5">
-                        </lightning-layout-item>
-                        <!-- user name section start  -->
-
-                        <!-- Password section start  -->
-                        <lightning-layout-item size="12" small-device-size="5" medium-device-size="5"
-                            large-device-size="5">
-                        </lightning-layout-item>
-                        <lightning-layout-item size="12" class="slds-align_absolute-center" small-device-size="2"
-                            medium-device-size="2" large-device-size="2">
-                            <lightning-input type="password" class="passwordClass" name="password"
-                                onkeyup={setInputValue} label="Password"></lightning-input>
-                        </lightning-layout-item>
-                        <lightning-layout-item size="12" small-device-size="5" medium-device-size="5"
-                            large-device-size="5">
-                        </lightning-layout-item>
-                        <!-- Password section end  -->
-                    </lightning-layout>
+                    </div>
                 </div>
-                <div id="login-button-container">
-                    <lightning-layout>
-                        <!-- Password section start  -->
-                        <lightning-layout-item size="12" small-device-size="5" medium-device-size="5"
-                            large-device-size="5">
-                        </lightning-layout-item>
-                        <lightning-layout-item size="12" small-device-size="2" medium-device-size="2"
-                            large-device-size="2">
-                            <lightning-button label="Login" variant="brand-outline"
-                                class="slds-m-top--small slds-align_absolute-center" icon-name="utility:user"
-                                icon-position="left" onclick={handleLoginButton}></lightning-button>
-                        </lightning-layout-item>
-                        <lightning-layout-item size="12" small-device-size="5" medium-device-size="5"
-                            large-device-size="5">
-                        </lightning-layout-item>
-                        <!-- Password section end  -->
-                    </lightning-layout>
+                <div class="slds-grid slds-grid_vertical slds-grid_vertical-align-center slds-grid_align-center">
+                    <div class="slds-col">
+                        <lightning-input type="text" class="usernameClass" name="username" onkeyup={setInputValue}
+                            label="User name"></lightning-input>
+                    </div>
+                    <div class="slds-col">
+                        <lightning-input type="password" class="passwordClass" name="password" onkeyup={setInputValue}
+                            label="Password"></lightning-input>
+                    </div>
+                </div>
+                <div class="slds-grid slds-grid_vertical slds-grid_vertical-align-center slds-grid_align-center">
+                    <div class="slds-col">
+                        <lightning-button label="Login" variant="brand-outline"
+                            class="slds-m-top--small slds-align_absolute-center" icon-name="utility:user"
+                            icon-position="left" onclick={handleLoginButton}></lightning-button>
+                    </div>
                 </div>
             </div>
         </template>
