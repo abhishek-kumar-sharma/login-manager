@@ -1,10 +1,11 @@
 import { LightningElement, track } from 'lwc';
-
+import logo from '@salesforce/resourceUrl/logo';
 export default class LoginManagerLwc extends LightningElement {
 
     showHeader = false;
     showLogin = false;
     showDataTable = false;
+    header_Logo = logo;
     @track userDetails = {
         username: null,
         password: null
@@ -17,7 +18,6 @@ export default class LoginManagerLwc extends LightningElement {
      */
     connectedCallback() {
         try {
-
             /**
              * Checking user is logged in or not from session
              */

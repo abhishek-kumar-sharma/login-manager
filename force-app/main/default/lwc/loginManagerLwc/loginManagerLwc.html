@@ -1,6 +1,6 @@
 <template>
     <!-- Container start -->
-    <div id="main-container">
+    <div id="main-container" class="login-page">
         <template if:true={showHeader}>
             <div id="header-container">
 
@@ -11,12 +11,10 @@
             <div id="login-form-container">
                 <div class="slds-grid slds-m-top--xx-large slds-grid_vertical slds-grid_vertical-align-center slds-grid_align-center">
                     <div class="slds-col">
-                        <lightning-icon class="slds-align_absolute-center" icon-name="action:approval"
-                            alternative-text="Approved" title="Approved">
-                        </lightning-icon>
+                        <img src={header_Logo} class="img-size"></img>
                     </div>
                 </div>
-                <div class="slds-grid slds-grid_vertical slds-grid_vertical-align-center slds-grid_align-center">
+                <div class="slds-grid slds-grid_vertical slds-grid_vertical-align-center slds-grid_align-center login-box">
                     <div class="slds-col">
                         <lightning-input type="text" class="usernameClass" name="username" onkeyup={setInputValue}
                             label="User name"></lightning-input>

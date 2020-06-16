@@ -1,0 +1,20 @@
+.login-page{
+    height: 100% !important;
+    margin: 0px;
+    background: aliceblue;
+    box-shadow: inset 1px 0px 20px 30px darkolivegreen;
+    padding: 20px;
+}
+
+.img-size{
+    max-width: 20%;
+    height: auto;
+    margin-left: 525px;
+}
+
+.login-box{
+    box-shadow: 0px 20px 18px 6px darkseagreen;
+    padding: 10px;
+    margin-left: 500px;
+    margin-right: 500px;
+}
