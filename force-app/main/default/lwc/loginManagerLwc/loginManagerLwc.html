@@ -9,12 +9,14 @@
 
         <template if:true={showLogin}>
             <div id="login-form-container">
-                <div class="slds-grid slds-m-top--xx-large slds-grid_vertical slds-grid_vertical-align-center slds-grid_align-center">
+                <div
+                    class="slds-grid slds-m-top--xx-large slds-grid_vertical slds-grid_vertical-align-center slds-grid_align-center">
                     <div class="slds-col">
                         <img src={header_Logo} class="img-size"></img>
                     </div>
                 </div>
-                <div class="slds-grid slds-grid_vertical slds-grid_vertical-align-center slds-grid_align-center login-box">
+                <div
+                    class="slds-grid slds-grid_vertical slds-grid_vertical-align-center slds-grid_align-center login-box">
                     <div class="slds-col">
                         <lightning-input type="text" class="usernameClass" name="username" onkeyup={setInputValue}
                             label="User name"></lightning-input>
@@ -31,7 +33,7 @@
                             icon-position="left" onclick={handleLoginButton}></lightning-button>
                     </div>
                 </div>
-            </div>
+            </div> 
         </template>
 
         <template if:true={showDataTable}>

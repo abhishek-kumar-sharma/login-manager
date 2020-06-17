@@ -1,15 +1,16 @@
 import { LightningElement, track } from 'lwc';
 import logo from '@salesforce/resourceUrl/logo';
+import validate_login_Apex from '@salesforce/apex/loginManagerCtrl.verifyUserLoginDetail_Apex';
 export default class LoginManagerLwc extends LightningElement {
 
-    showHeader = false;
-    showLogin = false;
-    showDataTable = false;
-    header_Logo = logo;
+    showHeader = false; // to show hide the page header
+    showLogin = false; // to show hide the login box
+    showDataTable = false; // to show hide the data table
+    header_Logo = logo; // to hold the header logo
     @track userDetails = {
         username: null,
         password: null
-    }
+    }; // to hold the user input details
 
     /**
      * Initalizing the values and checking the previous session
@@ -45,7 +46,7 @@ export default class LoginManagerLwc extends LightningElement {
     setInputValue(event) {
         try {
             if (event.target.name !== undefined && event.target.name !== null && event.target.value !== undefined && event.target.value !== null) {
-                this.userDetails[event.target.name] = event.target.value;
+                this.userDetails[event.target.name] = event.target.value.trim();
             }
 
         } catch (error) {
@@ -61,21 +62,40 @@ export default class LoginManagerLwc extends LightningElement {
      */
     handleLoginButton() {
         try {
+            console.log('this.userDetails ===: ' + JSON.stringify(this.userDetails));
             var usernameClass = this.template.querySelector(".usernameClass");
             var passwordClass = this.template.querySelector(".passwordClass");
-            if (this.userDetails.username === null || this.userDetails.username === undefined) {
+            var isUserInputValid = false;
+            if (this.userDetails.username === null || this.userDetails.username === undefined || this.userDetails.username.trim() === "") {
                 usernameClass.setCustomValidity("username is needed");
                 usernameClass.reportValidity();
+                isUserInputValid = false;
+                return;
             } else {
                 usernameClass.setCustomValidity("");
                 usernameClass.reportValidity();
+                isUserInputValid = true;
             }
-            if (this.userDetails.password === null || this.userDetails.password === undefined) {
+            if (this.userDetails.password === null || this.userDetails.password === undefined || this.userDetails.password.trim() === "") {
                 passwordClass.setCustomValidity("password is needed");
                 passwordClass.reportValidity();
+                isUserInputValid = false;
             } else {
                 passwordClass.setCustomValidity("");
                 passwordClass.reportValidity();
+                isUserInputValid = true;
+            }
+            console.log('user input valid ::' + isUserInputValid);
+            if (isUserInputValid) {
+                validate_login_Apex({
+                    userInput : JSON.stringify(this.userDetails)
+                }).then(result => { 
+                    console.log('String ::',JSON.stringify(result));
+                })
+                .catch(error => {
+                    console.error('Error occurred while validating the login process. \n Message ::',error);
+                    
+                })
             }
 
         } catch (error) {
