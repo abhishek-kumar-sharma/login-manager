@@ -8,10 +8,10 @@ export default class LoginManagerLwc extends LightningElement {
     showDataTable = false; // to show hide the data table
     header_Logo = logo; // to hold the header logo
     @track userDetails = {
-        username: null,
+        username: null, 
         password: null
     }; // to hold the user input details
-
+ 
     /**
      * Initalizing the values and checking the previous session
      * Created By       :       Abhishek Kumar Sharma
@@ -70,7 +70,7 @@ export default class LoginManagerLwc extends LightningElement {
                 usernameClass.setCustomValidity("username is needed");
                 usernameClass.reportValidity();
                 isUserInputValid = false;
-                return;
+                return; 
             } else {
                 usernameClass.setCustomValidity("");
                 usernameClass.reportValidity();
