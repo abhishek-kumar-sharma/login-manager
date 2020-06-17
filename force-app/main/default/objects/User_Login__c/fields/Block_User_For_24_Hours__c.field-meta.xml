@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Block_User_For_24_Hours__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Block user for 24 hours.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Block user for 24 hours.</inlineHelpText>
+    <label>Block User For 24 Hours</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

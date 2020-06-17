@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_of_failed_Login_attempt_in_24_hours__c</fullName>
+    <description>No of failed login attempt in 24 hours.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>No of failed login attempt in 24 hours.</inlineHelpText>
+    <label>No of failed Login attempt in 24 hours</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -32,5 +32,13 @@
         <members>*</members>
         <name>StaticResource</name>
     </types>
+    <types>
+        <members>*</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomTab</name>
+    </types>
     <version>48.0</version>
 </Package>
