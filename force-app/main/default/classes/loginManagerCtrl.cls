@@ -41,6 +41,8 @@ public with sharing class loginManagerCtrl {
                 userMessageHandlerObject.userErrorMessage = null;
                 userMessageHandlerObject.responseData = String.valueOf(userLoginRecordList[0]);
                 userMessageHandlerObject.userInputData = inputtedUserDetail;
+                userLoginRecordList[0].Last_Login_Date_Time__c = System.now();
+                update userLoginRecordList;
             }
             
             return userMessageHandlerObject;

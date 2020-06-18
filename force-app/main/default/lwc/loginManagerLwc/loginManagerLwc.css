@@ -11,6 +11,11 @@
     height: auto;
     margin-left: 525px;
 }
+.header-img-size{
+    max-width: 9%;
+    height: auto;
+    /* margin-left: 525px; */
+}
 
 .login-box{
     box-shadow: 2px 1px 12px 7px #8fbc8f;
