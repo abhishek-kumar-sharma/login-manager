@@ -39,11 +39,11 @@
                     </template>
                     <!-- user error display section end -->
                     <div class="slds-col">
-                        <lightning-input type="text" class="usernameClass" name="username" onkeyup={setInputValue}
+                        <lightning-input type="text" autocomplete class="usernameClass" name="username" onkeyup={setInputValue}
                             label="User name"></lightning-input>
                     </div>
                     <div class="slds-col">
-                        <lightning-input type="password" class="passwordClass" name="password" onkeyup={setInputValue}
+                        <lightning-input type="password"  autocomplete class="passwordClass" name="password" onkeyup={setInputValue}
                             label="Password"></lightning-input>
                     </div>
                 </div>
@@ -65,54 +65,49 @@
         <!-- Outer template after login start -->
         <template if:false={showLogin}>
             <template if:true={showHeader}>
+                <!-- Header after login successful section start -->
                 <div id="header-container">
-                    <div class="slds-page-header slds-box_border" style="border-radius: 10px">
+                    <div class="slds-box_border slds-gutters_direct">
                         <div class="slds-grid">
-                            <div class="slds-col">
-                                <div class="slds-media slds-p-around--small">
+                            <div class="slds-col slds-m-left--large">
+                                <div class="slds-media slds-p-around--xx-small">
                                     <div class="slds-media__figure">
-                                        <lightning-icon icon-name="utility:company" alternative-text="Password Manager For Concret.io"></lightning-icon>
-                                    </div> 
+                                        <lightning-icon icon-name="utility:company"
+                                            alternative-text="Password Manager For Concret.io"></lightning-icon>
+                                    </div>
                                     <div class="slds-media__body">
-                                        <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Password Manager For Concret.io">
-                                            Password Manager For Concret.io
+                                        <nav>
+                                            <ol>
+                                                <li>Password Sheet For</li>
+                                            </ol>
+                                        </nav>
+                                        <h1 class="slds-page-header__title slds-truncate slds-align-middle"
+                                            title="concret.io">
+                                            concret.io
                                         </h1>
-                                        <p class="slds-text-body_small slds-line-height_reset">Abhishek Kumar Sharma </p>
-                                        
                                     </div>
                                 </div>
                             </div>
-                            <div class="slds-col">
-                                <div class="slds-media slds-p-around--small">
-                                    <div class="slds-media__figure">
-                                        <lightning-icon icon-name="utility:company" alternative-text="Password Manager For Concret.io"></lightning-icon>
-                                    </div> 
-                                    <div class="slds-media__body">
-                                        <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Password Manager For Concret.io">
-                                            Password Manager For Concret.io
-                                        </h1>
-                                        <p class="slds-text-body_small slds-line-height_reset">Abhishek Kumar Sharma </p>
-                                        
-                                    </div>
-                                </div>
+                            <div class="slds-col slds-align_absolute-center">
+                                {displayDate}
                             </div>
-                            <div class="slds-col">
-                                <div class="slds-media slds-p-around--small">
-                                    <div class="slds-media__figure">
-                                        <lightning-icon icon-name="utility:company" alternative-text="Password Manager For Concret.io"></lightning-icon>
-                                    </div> 
-                                    <div class="slds-media__body">
-                                        <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Password Manager For Concret.io">
-                                            Password Manager For Concret.io
-                                        </h1>
-                                        <p class="slds-text-body_small slds-line-height_reset">Abhishek Kumar Sharma </p>
-                                        
-                                    </div>
-                                </div>
+                            <div class="slds-col slds-m-top--x-small slds-m-right--small">
+                                <lightning-button label="Add Credentials" class="slds-m-left--xx-small slds-float_right"
+                                    variant="bare" icon-name="utility:new" icon-position="left"></lightning-button>
+                                <lightning-button label="Verify All Credentials"
+                                    class="slds-m-left--xx-small slds-float_right" variant="bare"
+                                    icon-name="utility:salesforce1" icon-position="left"></lightning-button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Header after login successful section end -->
+
+                <!-- After login displaying the data using data table section start -->
+                <div id="table-body-container">
+
+                </div>
+                <!-- After login displaying the data using data table section end -->
             </template>
 
             <template if:true={showDataTable}>

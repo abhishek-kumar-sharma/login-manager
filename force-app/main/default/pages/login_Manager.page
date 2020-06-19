@@ -1,0 +1,15 @@
+<apex:page standardStylesheets="false" lightningStylesheets="true" showChat="false" showHeader="false" sidebar="false">
+    <apex:includeLightning />
+    <script>
+        $Lightning.use("c:loginManager", function () {
+            $Lightning.createComponent("c:LoginManagerLwc", {},
+                    "mainDiv", function (cmp) {
+                    });
+        });
+    </script>
+    <apex:slds >
+        <div id="mainDiv">
+
+        </div>
+    </apex:slds>
+</apex:page>

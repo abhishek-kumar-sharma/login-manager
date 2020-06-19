@@ -3,19 +3,20 @@ import logo from '@salesforce/resourceUrl/logo';
 import validate_login_Apex from '@salesforce/apex/loginManagerCtrl.verifyUserLoginDetail_Apex';
 export default class LoginManagerLwc extends LightningElement {
 
-    showHeader = true; // Variable to show hide the page header
-    showLogin = false; // Variable to show hide the login box
+    showHeader = false; // Variable to show hide the page header
+    showLogin = true; // Variable to show hide the login box
     showDataTable = false; // Variable to show hide the data table
     showLoginError = false; // Variable to show hide the login page error
-    loginErrorMessage ; // Variable to hold the login page
+    loginErrorMessage; // Variable to hold the login page
+    displayDate; // Variable to hold the date
     header_Logo = logo; // Variable to hold the header logo
     @track userDetails = {
-        username: null, 
+        username: null,
         password: null
     }; // to hold the user input details
 
     @track userResponseFromServer; // Variable to hold the user response from server
- 
+
     /**
      * Initalizing the values and checking the previous session
      * Created By       :       Abhishek Kumar Sharma
@@ -23,15 +24,25 @@ export default class LoginManagerLwc extends LightningElement {
      */
     connectedCallback() {
         try {
+            var that = this;
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+            startTime(that);
+            function startTime(that) {
+                var currentTime = new Date();
+                currentTime = currentTime.toLocaleDateString('us-en', options);
+                that.displayDate = currentTime;
+                var t = setTimeout(startTime, 900 , that);
+            }
+            
             /**
              * Checking user is logged in or not from session
              */
             if (sessionStorage.getItem('clientMachineId') === null || sessionStorage.getItem('clientMachineSecret') === null || sessionStorage.getItem('clientMachineId') === undefined || sessionStorage.getItem('clientMachineSecret') === undefined) {
-                //this.showLogin = true;
+                this.showLogin = true;
                 console.log('hello');
 
             } else {
-               // this.showLogin = false;
+                this.showLogin = false;
                 console.log('world');
 
             }
@@ -74,7 +85,7 @@ export default class LoginManagerLwc extends LightningElement {
                 usernameClass.setCustomValidity("username is needed");
                 usernameClass.reportValidity();
                 isUserInputValid = false;
-                return; 
+                return;
             } else {
                 usernameClass.setCustomValidity("");
                 usernameClass.reportValidity();
@@ -92,22 +103,22 @@ export default class LoginManagerLwc extends LightningElement {
             console.log('user input valid ::' + isUserInputValid);
             if (isUserInputValid) {
                 validate_login_Apex({
-                    userInput : JSON.stringify(this.userDetails)
-                }).then(result => { 
+                    userInput: JSON.stringify(this.userDetails)
+                }).then(result => {
                     this.userResponseFromServer = result;
-                    if(this.userResponseFromServer.isSuccess === false){
+                    if (this.userResponseFromServer.isSuccess === false) {
                         this.showLoginError = true;
-                    }else{
+                    } else {
                         this.showLoginError = false;
                         this.showLogin = false;
                         this.showHeader = true;
                     }
-                    console.log('String ::',JSON.stringify(result));
+                    console.log('String ::', JSON.stringify(result));
                 })
-                .catch(error => {
-                    console.error('Error occurred while validating the login process. \n Message ::',error);
-                    
-                })
+                    .catch(error => {
+                        console.error('Error occurred while validating the login process. \n Message ::', error);
+
+                    })
             }
 
         } catch (error) {
@@ -121,12 +132,12 @@ export default class LoginManagerLwc extends LightningElement {
      * Created By       :       Abhishek Kumar Sharma
      * Created Date     :       17 May 2020
      */
-    handleCloseErrorButton(){
+    handleCloseErrorButton() {
         try {
             this.showLoginError = false;
         } catch (error) {
-            console.error('Error occurred while handling the close button click. Please refresh the page. \n Message ::',error);
-            
+            console.error('Error occurred while handling the close button click. Please refresh the page. \n Message ::', error);
+
         }
     }
 
