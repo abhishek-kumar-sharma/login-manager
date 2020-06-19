@@ -3,13 +3,12 @@ import logo from '@salesforce/resourceUrl/logo';
 import validate_login_Apex from '@salesforce/apex/loginManagerCtrl.verifyUserLoginDetail_Apex';
 export default class LoginManagerLwc extends LightningElement {
 
-    showHeader = false; // Variable to show hide the page header
+    showHeader = true; // Variable to show hide the page header
     showLogin = false; // Variable to show hide the login box
     showDataTable = false; // Variable to show hide the data table
     showLoginError = false; // Variable to show hide the login page error
     loginErrorMessage ; // Variable to hold the login page
     header_Logo = logo; // Variable to hold the header logo
-    @track currentTime = new Date();
     @track userDetails = {
         username: null, 
         password: null
@@ -28,11 +27,11 @@ export default class LoginManagerLwc extends LightningElement {
              * Checking user is logged in or not from session
              */
             if (sessionStorage.getItem('clientMachineId') === null || sessionStorage.getItem('clientMachineSecret') === null || sessionStorage.getItem('clientMachineId') === undefined || sessionStorage.getItem('clientMachineSecret') === undefined) {
-                this.showLogin = true;
+                //this.showLogin = true;
                 console.log('hello');
 
             } else {
-                this.showLogin = false;
+               // this.showLogin = false;
                 console.log('world');
 
             }
