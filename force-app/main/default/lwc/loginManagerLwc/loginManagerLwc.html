@@ -1,6 +1,36 @@
 <template>
     <!-- Container start -->
-    <div id="main-container" class="login-page">
+    <div id="main-container" class="login-page slds-modal slds-fade-in-open">
+
+        <!-- Toast div section start -->
+        <template if:true={showToast}>
+            <div class="slds-notify_container slds-is-relative">
+                <div class={toastClass} role="status">
+                    <span class="slds-assistive-text">success</span>
+                    <span
+                        class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top"
+                        title="Description of icon when needed">
+                        <lightning-button-icon icon-name={toastIconName} variant="bare-inverse"
+                            alternative-text={toastAlternativeText}></lightning-button-icon>
+                    </span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small ">
+                            {toastMessage}
+                        </h2>
+                    </div>
+                    <div class="slds-notify__close">
+                        <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close"
+                            onclick={closeToast}>
+                            <lightning-button-icon icon-name="utility:close" variant="bare-inverse" onclick={closeToast}
+                                alternative-text="close">
+                            </lightning-button-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <!-- Toast div section end -->
 
         <!-- Outer template for login start -->
         <template if:true={showLogin}>
@@ -39,12 +69,12 @@
                     </template>
                     <!-- user error display section end -->
                     <div class="slds-col">
-                        <lightning-input type="text" autocomplete class="usernameClass" name="username" onkeyup={setInputValue}
-                            label="User name"></lightning-input>
+                        <lightning-input type="text" autocomplete class="usernameClass lgnInput" name="username"
+                            onkeyup={setInputValue} label="User name"></lightning-input>
                     </div>
                     <div class="slds-col">
-                        <lightning-input type="password"  autocomplete class="passwordClass" name="password" onkeyup={setInputValue}
-                            label="Password"></lightning-input>
+                        <lightning-input type="password" autocomplete class="passwordClass lgnInput" name="password"
+                            onkeyup={setInputValue} label="Password"></lightning-input>
                     </div>
                 </div>
                 <!-- user input section end -->
@@ -62,7 +92,7 @@
         </template>
         <!-- Outer template for login end -->
 
-        <!-- Outer template after login start -->
+        <!-- Outer template after login successful start -->
         <template if:false={showLogin}>
             <template if:true={showHeader}>
                 <!-- Header after login successful section start -->
@@ -93,7 +123,8 @@
                             </div>
                             <div class="slds-col slds-m-top--x-small slds-m-right--small">
                                 <lightning-button label="Add Credentials" class="slds-m-left--xx-small slds-float_right"
-                                    variant="bare" icon-name="utility:new" icon-position="left"></lightning-button>
+                                    onclick={openAddCredentialsModal} variant="bare" icon-name="utility:new"
+                                    icon-position="left"></lightning-button>
                                 <lightning-button label="Verify All Credentials"
                                     class="slds-m-left--xx-small slds-float_right" variant="bare"
                                     icon-name="utility:salesforce1" icon-position="left"></lightning-button>
@@ -111,13 +142,112 @@
             </template>
 
             <template if:true={showDataTable}>
-                <div>
-
+                <div class="slds-m-top--small slds-box_border slds-gutters_direct">
+                    hello table 
                 </div>
             </template>
         </template>
-        <!-- Outer template after login end -->
+        <!-- Outer template after login successful end -->
 
+        <!-- Add credentials section start -->
+        <template if:true={showAddCredentials}>
+            <div id="add-credentials-container">
+                <div>
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">
+                                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                    title="Close" onclick={closeAddCredentialsModal}>
+                                    <lightning-button-icon icon-name="utility:close" onclick={closeAddCredentialsModal}
+                                        alternative-text="close" variant="bare-inverse"></lightning-button-icon>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+                                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Create New
+                                    Credentials</h2>
+                            </header>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                <div class="slds-grid slds-wrap">
+                                    <template if:true={showAddCredentialsError}>
+                                        <div class="slds-col slds-p-around_small slds-size_12-of-12">
+                                            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error"
+                                                role="alert">
+                                                <h2>
+                                                    {userResponseFromServer.userErrorMessage}
+                                                </h2>
+                                                <div class="slds-notify__close">
+                                                    <button
+                                                        class="slds-button slds-button_icon slds-button_icon-small slds-button_icon-inverse"
+                                                        title="Close">
+                                                        <lightning-button-icon variant="bare-inverse"
+                                                            icon-name="utility:close" onclick={handleCloseErrorButton}
+                                                            alternative-text="Close" title="Close">
+                                                        </lightning-button-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <div class="slds-col slds-p-around_small slds-col slds-size_6-of-12">
+                                        <lightning-input type="text" name="Project_Name__c" onkeyup={setInputValue}
+                                            placeholder="Project name" label="Project name" required class="addCred">
+                                        </lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-p-around_small slds-col slds-size_6-of-12">
+                                        <lightning-input type="text" name="Username__c" onkeyup={setInputValue}
+                                            placeholder="Username" label="Username" required class="addCred">
+                                        </lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-p-around_small slds-col slds-size_6-of-12">
+                                        <lightning-input type="text" name="Password__c" onkeyup={setInputValue}
+                                            placeholder="Password" label="Password" required class="addCred">
+                                        </lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-p-around_small slds-col slds-size_6-of-12">
+                                        <lightning-input type="text" name="Security_Token__c" onkeyup={setInputValue}
+                                            placeholder="Security Token" label="Security Token" required
+                                            class="addCred"></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-p-around_small slds-col slds-size_6-of-12">
+                                        <lightning-input type="checkbox" onchange={setInputValue}
+                                            name="Is_Salesforce_Credentials__c" label="Is Salesforce Credentials ?"
+                                            class="addCredCheckbox"></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-p-around_small slds-col slds-size_6-of-12">
+                                        <lightning-input type="checkbox" onchange={setInputValue} name="Is_Sandbox__c"
+                                            label="Is Sandbox ?" class="addCredCheckbox"></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-p-around_small slds-col slds-size_6-of-12">
+                                        <lightning-input type="checkbox" onchange={setInputValue}
+                                            name="Is_Community_User__c" label="Is Community User"
+                                            class="addCredCheckbox"></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-p-around_small slds-col slds-size_6-of-12">
+                                    </div>
+                                    <template if:true={login_Credential.Is_Community_User__c}>
+                                        <div class="slds-col slds-p-around_small slds-col slds-size_12-of-12">
+                                            <lightning-input type="url" name="Custom_URL_For_Login__c"
+                                                onkeyup={setInputValue} placeholder="Custom URL For Login"
+                                                label="URL For Login" class="addCred"></lightning-input>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                            <footer class="slds-modal__footer slds-modal__footer_directional">
+                                <lightning-button label="cancel" class="slds-button" variant="destructive"
+                                    icon-name="utility:close" icon-position="left" onclick={closeAddCredentialsModal}>
+                                </lightning-button>
+                                <lightning-button label="save" class="slds-button" variant="bare"
+                                    icon-name="utility:add" icon-position="left" onclick={handleAddCredentialsButton}>
+                                </lightning-button>
+                            </footer>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </div>
+            </div>
+        </template>
+        <!-- Add credentials section end -->
     </div>
     <!-- Container end -->
 </template>
