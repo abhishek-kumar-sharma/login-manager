@@ -2,15 +2,16 @@ import { LightningElement, api, track } from 'lwc';
 
 export default class DataTableLwc extends LightningElement {
     @api flexipageRegionWidth;
-    tableHeading = 'Hello World'; // table heading
+    tableHeading = ''; // table heading
 
     //Entries controlling attribute section start
     disableEntriesOptions = false; // enable/disable the select box for entries
+    defaultNoOfEntriesToShow = '5'; // No of entries to show the default
     @track entriesOptions = [
         { label: '5', value: '5' },
-        { label: '10', value: '10' },
-        { label: '15', value: '15' },
-        { label: '20', value: '20' }
+        { label: '10', value: '10', selected: true },
+        { label: '50', value: '50' },
+        { label: '100', value: '100' }
     ]; // entries select options values
     //Entries controlling attribute section end
 
@@ -37,9 +38,11 @@ export default class DataTableLwc extends LightningElement {
      * Created By       :       Abhishek Kumar Sharma
      * Created Date     :       24 June 2020
      */
-    handleShowEntriesChange() {
+    handleShowEntriesChange(event) {
         try {
-
+            if (event.target.value !== null && event.target.value !== undefined) {
+                this.defaultNoOfEntriesToShow = event.target.value;
+            }
         } catch (error) {
             console.error('Error while handling the change entries. \n Message ::', error);
 
@@ -53,9 +56,25 @@ export default class DataTableLwc extends LightningElement {
      */
     handleSearchStringChange() {
         try {
-
+            if (event.target.value !== null && event.target.value !== undefined) {
+                this.searchString = event.target.value;
+            }
         } catch (error) {
             console.log('Error while handling the search string change. \n Message ::', error);
+        }
+    }
+
+    /**
+     * Method to handle the data refresh from server for data table
+     * Created By       :       Abhishek Kumar Sharma
+     * Created Date     :       24 June 2020
+     */
+    handleRefreshTableContent() {
+        try {
+
+        } catch (error) {
+            console.error('Error occurred while handling the table refresh button. \n Message ::', error);
+
         }
     }
 }

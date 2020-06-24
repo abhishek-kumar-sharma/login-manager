@@ -1,39 +1,35 @@
 <template>
     <!-- header for the table start -->
-    <div class="slds-p-top--small">
-        <lightning-layout multiple-rows="true" horizontal-align="center">
-            <div>
-                <lightning-layout-item flexibility="auto" size="12"
-                    class="slds-text-align_center header-area header-area">
-                    <lightning-layout vertical-align="center" horizontal-align="spread" class="width-100">
-                        <lightning-layout-item flexibility="shrink"
-                            class="header-area-1 slds-p-vertical_small slds-text-align_left slds-p-left_small">
-                            Show
-                            <lightning-combobox name="entriesShow" label="Entries" disabled={disableEntriesOptions}
-                                variant="label-hidden" options={entriesOptions} onchange={handleShowEntriesChange}>
-                            </lightning-combobox>
-                            entries
-                        </lightning-layout-item>
+    <div class="slds-m-top--small slds-box">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item size="2" flexibility="auto, no-grow">
+                <div class="slds-shrink display-flex align-item-center">
+                    Show
+                    <div class="slds-form-element slds-m-left--xx-small slds-m-right--xx-small">
+                        <div class="slds-form-element__control slds-grow">
+                            <div class="slds-select_container">
+                                <select class="slds-select" onclick={handleShowEntriesChange} disabled={disableEntriesOptions} name="showEntries">
+                                    <template for:each = {entriesOptions} for:item="entriesOption">
+                                        <option key={entriesOption.value} selected={entriesOption.selected} value={entriesOption.value}>{entriesOption.label}</option>
+                                     </template>
+                                </select></div>
+                        </div>
+                    </div>
+                    entries
+                </div>
+            </lightning-layout-item>
 
-                        <lightning-layout-item flexibility="shrink"
-                            class="header-area-2 slds-p-vertical_small slds-text-align_center slds-truncate">
-                            <strong class="capitalize slds-truncate">
-                                {tableHeading}
-                            </strong>
-                        </lightning-layout-item>
-
-                        <lightning-layout-item flexibility="shrink"
-                            class="header-area-3 slds-p-vertical_small slds-text-align_right slds-p-right_small">
-                            <lightning-input class="searchString slds-p-left--small" label="Search"
-                                variant="label-hidden" name="searchString" value={searchString} placeholder="search"
-                                disabled={disableSearchBox} onchange={handleSearchStringChange}>
-                            </lightning-input>
-                        </lightning-layout-item>
-                    </lightning-layout>
-                </lightning-layout-item>
-            </div>
-            <lightning-layout-item flexibility="auto" size="12" class="slds-text-align_center">
-                data table go here
+            <lightning-layout-item size="8">
+                <strong class="slds-text-title_caps slds-align_absolute-center slds-truncate">
+                    {tableHeading}
+                </strong>
+            </lightning-layout-item>
+            <lightning-layout-item size="2" class="display-flex">
+                <lightning-input class="searchString slds-p-left--small" label="Search" variant="label-hidden"
+                    name="searchString" value={searchString} placeholder="search" disabled={disableSearchBox}
+                    onkeyup={handleSearchStringChange}>
+                </lightning-input>
+                <lightning-button-icon icon-name="utility:refresh" variant="brand" class="slds-m-left--xx-small" alternative-text="Refresh" onclick={handleRefreshTableContent}></lightning-button-icon>
             </lightning-layout-item>
         </lightning-layout>
     </div>
