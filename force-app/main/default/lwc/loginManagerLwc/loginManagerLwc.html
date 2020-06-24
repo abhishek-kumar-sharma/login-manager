@@ -136,15 +136,13 @@
 
                 <!-- After login displaying the data using data table section start -->
                 <div id="table-body-container">
-
+                    <template if:true={showDataTable}>
+                        <div class="slds-m-top--small slds-box_border slds-gutters_direct">
+                           
+                        </div>
+                    </template>
                 </div>
                 <!-- After login displaying the data using data table section end -->
-            </template>
-
-            <template if:true={showDataTable}>
-                <div class="slds-m-top--small slds-box_border slds-gutters_direct">
-                    hello table 
-                </div>
             </template>
         </template>
         <!-- Outer template after login successful end -->

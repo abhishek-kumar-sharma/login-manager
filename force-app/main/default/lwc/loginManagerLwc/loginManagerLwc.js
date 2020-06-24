@@ -179,7 +179,7 @@ export default class LoginManagerLwc extends LightningElement {
                         this.showLoginError = false;
                         this.showLogin = false;
                         this.showHeader = true;
-                        this.showDataTable = true;
+                        this.showDataTable = true; 
                         this.login_Credential['User_Login__c'] = result.Id;
                     }
                     console.log('String ::', JSON.stringify(result));
