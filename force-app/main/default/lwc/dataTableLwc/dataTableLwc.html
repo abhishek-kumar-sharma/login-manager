@@ -1,3 +1,40 @@
 <template>
-    test
+    <!-- header for the table start -->
+    <div class="slds-p-top--small">
+        <lightning-layout multiple-rows="true" horizontal-align="center">
+            <div>
+                <lightning-layout-item flexibility="auto" size="12"
+                    class="slds-text-align_center header-area header-area">
+                    <lightning-layout vertical-align="center" horizontal-align="spread" class="width-100">
+                        <lightning-layout-item flexibility="shrink"
+                            class="header-area-1 slds-p-vertical_small slds-text-align_left slds-p-left_small">
+                            Show
+                            <lightning-combobox name="entriesShow" label="Entries" disabled={disableEntriesOptions}
+                                variant="label-hidden" options={entriesOptions} onchange={handleShowEntriesChange}>
+                            </lightning-combobox>
+                            entries
+                        </lightning-layout-item>
+
+                        <lightning-layout-item flexibility="shrink"
+                            class="header-area-2 slds-p-vertical_small slds-text-align_center slds-truncate">
+                            <strong class="capitalize slds-truncate">
+                                {tableHeading}
+                            </strong>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item flexibility="shrink"
+                            class="header-area-3 slds-p-vertical_small slds-text-align_right slds-p-right_small">
+                            <lightning-input class="searchString slds-p-left--small" label="Search"
+                                variant="label-hidden" name="searchString" value={searchString} placeholder="search"
+                                disabled={disableSearchBox} onchange={handleSearchStringChange}>
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </lightning-layout-item>
+            </div>
+            <lightning-layout-item flexibility="auto" size="12" class="slds-text-align_center">
+                data table go here
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
 </template>
