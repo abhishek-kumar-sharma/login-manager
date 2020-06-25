@@ -2,6 +2,10 @@ import { LightningElement, api, track } from 'lwc';
 
 export default class DataTableLwc extends LightningElement {
     @api flexipageRegionWidth;
+    @api objectApiName;
+    @api fieldsToFetch = [];
+    @api viewAllPermissionForUser;
+    @api loggedInUserId;
     tableHeading = ''; // table heading
 
     //Entries controlling attribute section start
@@ -27,6 +31,11 @@ export default class DataTableLwc extends LightningElement {
      */
     connectedCallback() {
         try {
+            console.log('flexipageRegionWidth'+this.flexipageRegionWidth);
+            console.log('objectApiName'+this.objectApiName);
+            console.log('fieldsToFetch'+this.fieldsToFetch);
+            console.log('viewAllPermissionForUser'+this.viewAllPermissionForUser);
+            console.log('loggedInUserId'+this.loggedInUserId);
 
         } catch (error) {
             console.error('Error occurred while initalizing the data table. \n Message ::', error);

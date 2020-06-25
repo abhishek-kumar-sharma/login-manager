@@ -30,7 +30,7 @@ public with sharing class loginManagerCtrl {
             userMessageHandlerObject.errorMessage = 'User not found';
             userMessageHandlerObject.userErrorMessage = 'No user found with this username and password combination.';
             userMessageHandlerObject.responseData = 'Invalid Login';
-            userMessageHandlerObject.userInputData = String.valueOf(JSON.deserializeUntyped(userInput));
+            userMessageHandlerObject.userInputData = userInput;
             }else if (userLoginRecordList[0].Is_Active__c == false) {
             userMessageHandlerObject.isSuccess = false; 
             userMessageHandlerObject.Id = userLoginRecordList[0].Id;
@@ -38,7 +38,7 @@ public with sharing class loginManagerCtrl {
             userMessageHandlerObject.errorMessage = 'User inactive';
             userMessageHandlerObject.userErrorMessage = 'Your account is deactivated by admin.';
             userMessageHandlerObject.responseData = 'Invalid Login';
-            userMessageHandlerObject.userInputData = String.valueOf(JSON.deserializeUntyped(userInput));
+            userMessageHandlerObject.userInputData = userInput;
             }else if (userLoginRecordList[0].Block_User_For_24_Hours__c == true) {
             userMessageHandlerObject.isSuccess = false; 
             userMessageHandlerObject.Id = userLoginRecordList[0].Id;
@@ -46,7 +46,7 @@ public with sharing class loginManagerCtrl {
             userMessageHandlerObject.errorMessage = 'User blocked';
             userMessageHandlerObject.userErrorMessage = 'Your account is suspended temporarily, will resume after 24 hours.';
             userMessageHandlerObject.responseData = 'Invalid Login';
-            userMessageHandlerObject.userInputData = String.valueOf(JSON.deserializeUntyped(userInput));
+            userMessageHandlerObject.userInputData = userInput;
             }else{
                 userMessageHandlerObject.isSuccess = true; 
                 userMessageHandlerObject.Id = userLoginRecordList[0].Id;
@@ -54,7 +54,7 @@ public with sharing class loginManagerCtrl {
                 userMessageHandlerObject.errorMessage = null;
                 userMessageHandlerObject.userErrorMessage = null;
                 userMessageHandlerObject.responseData = String.valueOf(userLoginRecordList[0]);
-                userMessageHandlerObject.userInputData = String.valueOf(JSON.deserializeUntyped(userInput));
+                userMessageHandlerObject.userInputData = userInput;
                 userLoginRecordList[0].Last_Login_Date_Time__c = System.now();
                 update userLoginRecordList;
             }

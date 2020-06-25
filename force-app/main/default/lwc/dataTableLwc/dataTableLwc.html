@@ -1,6 +1,7 @@
 <template>
-    <!-- header for the table start -->
+   
     <div class="slds-m-top--small slds-box">
+         <!-- header for the table start -->
         <lightning-layout multiple-rows="true">
             <lightning-layout-item size="2" flexibility="auto, no-grow">
                 <div class="slds-shrink display-flex align-item-center">
@@ -32,5 +33,18 @@
                 <lightning-button-icon icon-name="utility:refresh" variant="brand" class="slds-m-left--xx-small" alternative-text="Refresh" onclick={handleRefreshTableContent}></lightning-button-icon>
             </lightning-layout-item>
         </lightning-layout>
+         <!-- header for the table end -->
+
+         <!-- Lightning data table section start -->
+         <div id="data-table-container">
+             <lightning-datatable>
+                 
+             </lightning-datatable>
+
+
+         </div>
+         <!-- Lightning data table section end -->
+
+
     </div>
 </template>

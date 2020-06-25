@@ -3,5 +3,6 @@
     <apiVersion>48.0</apiVersion>
     <availableInTouch>false</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
-    <label>login_Manager</label>
+    <description>Default Lightning Platform In Maintenance page</description>
+    <label>InMaintenance</label>
 </ApexPage>

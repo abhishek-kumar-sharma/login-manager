@@ -4,6 +4,19 @@ import validate_login_Apex from '@salesforce/apex/loginManagerCtrl.verifyUserLog
 import add_Credentials_Apex from '@salesforce/apex/loginManagerCtrl.addNewLoginCredentials_Apex';
 export default class LoginManagerLwc extends LightningElement {
 
+    // Data table controlling attributes start here
+    dataTableFieldToFetch = [
+        'Project_Name__c','Org_name__c',
+        'Username__c','Password__c',
+        'Security_Token__c','Is_Sandbox__c',
+        'Is_Salesforce_Credentials__c',
+        'Last_Validity_Check__c','Validity__c'
+    ];
+    dataTableObjectApiName = 'Login_Credential__c';
+    dataTableViewAllPermissionForUserRecords = 'Allowed';
+    dataTableLoggedInUserId;
+    // Data table controlling attributes end here
+
     showHeader = true; // Variable to show hide the page header
     showLogin = false; // Variable to show hide the login box
     showDataTable = true; // Variable to show hide the data table
@@ -173,14 +186,17 @@ export default class LoginManagerLwc extends LightningElement {
                     userInput: JSON.stringify(this.userDetails)
                 }).then(result => {
                     this.userResponseFromServer = result;
+                    console.log('result :::',JSON.stringify(result));
                     if (this.userResponseFromServer.isSuccess === false) {
                         this.showLoginError = true;
                     } else {
                         this.showLoginError = false;
                         this.showLogin = false;
                         this.showHeader = true;
-                        this.showDataTable = true; 
                         this.login_Credential['User_Login__c'] = result.Id;
+                        this.dataTableLoggedInUserId = result.Id;
+                        this.dataTableViewAllPermissionForUserRecords = 'Allowed';
+                        this.showDataTable = true;
                     }
                     console.log('String ::', JSON.stringify(result));
                 })

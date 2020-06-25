@@ -138,7 +138,7 @@
                 <div id="table-body-container">
                     <template if:true={showDataTable}>
                         <div class="">
-                         <c-data-table-lwc></c-data-table-lwc>
+                         <c-data-table-lwc object-api-name={dataTableObjectApiName} fields-to-fetch={dataTableFieldToFetch} view-all-permission-for-user={dataTableViewAllPermissionForUserRecords} logged-in-user-id={dataTableLoggedInUserId}></c-data-table-lwc>
                         </div>
                     </template>
                 </div>

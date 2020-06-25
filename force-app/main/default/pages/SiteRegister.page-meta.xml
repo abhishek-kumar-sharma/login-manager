@@ -3,5 +3,6 @@
     <apiVersion>48.0</apiVersion>
     <availableInTouch>false</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
-    <label>login_Manager</label>
+    <description>Default Salesforce Sites User Registration page</description>
+    <label>SiteRegister</label>
 </ApexPage>
