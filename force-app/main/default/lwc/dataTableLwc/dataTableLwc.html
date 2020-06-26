@@ -37,9 +37,16 @@
 
          <!-- Lightning data table section start -->
          <div id="data-table-container">
-             <lightning-datatable>
-                 
-             </lightning-datatable>
+             <lightning-layout class="slds-m-top--x-small">
+                <lightning-layout-item size="12">
+                    <lightning-datatable
+                    key-field="Id"
+                    data={tableResponseData}
+                    columns={dataTableFieldForColumn}>
+                        
+                    </lightning-datatable>
+                </lightning-layout-item>
+             </lightning-layout>
 
 
          </div>

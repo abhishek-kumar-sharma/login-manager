@@ -69,11 +69,11 @@
                     </template>
                     <!-- user error display section end -->
                     <div class="slds-col">
-                        <lightning-input type="text" autocomplete class="usernameClass lgnInput" name="username"
+                        <lightning-input type="text" autocomplete="off" class="usernameClass lgnInput" name="username"
                             onkeyup={setInputValue} label="User name"></lightning-input>
                     </div>
                     <div class="slds-col">
-                        <lightning-input type="password" autocomplete class="passwordClass lgnInput" name="password"
+                        <lightning-input type="password" autocomplete="off" class="passwordClass lgnInput" name="password"
                             onkeyup={setInputValue} label="Password"></lightning-input>
                     </div>
                 </div>
@@ -138,7 +138,7 @@
                 <div id="table-body-container">
                     <template if:true={showDataTable}>
                         <div class="">
-                         <c-data-table-lwc object-api-name={dataTableObjectApiName} fields-to-fetch={dataTableFieldToFetch} view-all-permission-for-user={dataTableViewAllPermissionForUserRecords} logged-in-user-id={dataTableLoggedInUserId}></c-data-table-lwc>
+                         <c-data-table-lwc view-all-permission-for-user={dataTableViewAllPermissionForUserRecords} logged-in-user-id={dataTableLoggedInUserId}></c-data-table-lwc>
                         </div>
                     </template>
                 </div>

@@ -19,7 +19,6 @@ public with sharing class loginManagerCtrl {
             List<User_Login__c> userLoginRecordList = new List<User_Login__c>(); 
             String query = 'SELECT ID,Is_Active__c,Last_Login_Date_Time__c,Password__c,Reason_For_Blocking_User__c,User_Email__c,User_Name__c,User_Phone__c,View_All_Records__c,Block_User_For_24_Hours__c FROM User_Login__c WHERE User_Name__c =\''+inputtedUserDetail.username +'\'AND Password__c =\''+inputtedUserDetail.password+'\' LIMIT 1';
             userLoginRecordList = Database.query(query);
-            system.debug('userLoginRecordList ::'+userLoginRecordList);
             /**
              * throwing custom errors on different criteria base
              */

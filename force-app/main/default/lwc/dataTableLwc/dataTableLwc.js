@@ -1,9 +1,8 @@
 import { LightningElement, api, track } from 'lwc';
+import getTableDataFrom_Apex from '@salesforce/apex/dataTableCtrl.getDataForTable_Apex';
 
 export default class DataTableLwc extends LightningElement {
     @api flexipageRegionWidth;
-    @api objectApiName;
-    @api fieldsToFetch = [];
     @api viewAllPermissionForUser;
     @api loggedInUserId;
     tableHeading = ''; // table heading
@@ -24,6 +23,66 @@ export default class DataTableLwc extends LightningElement {
     disableSearchBox = false; // Attribute to enable/disable the search box
     // Search input box controlling attribute section end
 
+    @track tableResponseData = {}; // table response data
+    dataTableFieldForColumn = [
+        {
+            label: 'Project Name',
+            fieldName:'Project_Name__c',
+            type:'text',
+            sortable:true
+        },
+        {
+            label: 'Org Name',
+            fieldName: 'Org_name__c',
+            type: 'text',
+            sortable: true
+        },
+        {
+            label: 'Username',
+            fieldName: 'Username__c',
+            type: 'text',
+            sortable: true
+        },
+        {
+            label: 'Password',
+            fieldName: 'Password__c',
+            type: 'text',
+            sortable: true
+        },
+        {
+            label: 'Security Token',
+            fieldName: 'Security_Token__c',
+            type: 'text',
+            sortable: true
+        },
+        {
+            label: 'Is Sandbox ?',
+            fieldName: 'Is_Sandbox__c',
+            type: 'checkbox',
+            sortable: true
+        },
+        {
+            label: 'Is SF Credentials ?',
+            fieldName: 'Is_Salesforce_Credentials__c',
+            type: 'checkbox',
+            sortable: true
+        },
+        {
+            label: 'Last Validity Check',
+            fieldName: 'Last_Validity_Check__c',
+            type: 'datetime',
+            sortable: true
+        },
+        {
+            label: 'Valid ?',
+            fieldName: 'Validity__c',
+            type: 'checkbox',
+            sortable: true
+        }
+        
+    ]; // table columns
+    dataTableObjectApiName = 'Login_Credential__c'; // object API name
+
     /**
      * Connected call back to initialize the values
      * Created By       :       Abhishek Kumar Sharma
@@ -31,12 +90,19 @@ export default class DataTableLwc extends LightningElement {
      */
     connectedCallback() {
         try {
-            console.log('flexipageRegionWidth'+this.flexipageRegionWidth);
-            console.log('objectApiName'+this.objectApiName);
-            console.log('fieldsToFetch'+this.fieldsToFetch);
-            console.log('viewAllPermissionForUser'+this.viewAllPermissionForUser);
-            console.log('loggedInUserId'+this.loggedInUserId);
-
+            getTableDataFrom_Apex({
+                objectApiName : this.dataTableObjectApiName,
+                viewAllPermissionForUser : this.viewAllPermissionForUser,
+                loggedInUserId : this.loggedInUserId
+            })
+            .then( result => {
+                console.log('result ==>',JSON.stringify(result));
+                
+            })
+            .catch(error => {
+                console.error('Error while getting data from apex in data table connected call back. \n Message ::',error);
+                
+            })
         } catch (error) {
             console.error('Error occurred while initalizing the data table. \n Message ::', error);
         }

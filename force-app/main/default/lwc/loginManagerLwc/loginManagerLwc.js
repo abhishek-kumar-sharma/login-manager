@@ -5,25 +5,17 @@ import add_Credentials_Apex from '@salesforce/apex/loginManagerCtrl.addNewLoginC
 export default class LoginManagerLwc extends LightningElement {
 
     // Data table controlling attributes start here
-    dataTableFieldToFetch = [
-        'Project_Name__c','Org_name__c',
-        'Username__c','Password__c',
-        'Security_Token__c','Is_Sandbox__c',
-        'Is_Salesforce_Credentials__c',
-        'Last_Validity_Check__c','Validity__c'
-    ];
-    dataTableObjectApiName = 'Login_Credential__c';
     dataTableViewAllPermissionForUserRecords = 'Allowed';
     dataTableLoggedInUserId;
     // Data table controlling attributes end here
 
     showHeader = true; // Variable to show hide the page header
-    showLogin = false; // Variable to show hide the login box
+    showLogin = false; // Variable to show hide the login box 
     showDataTable = true; // Variable to show hide the data table
     showLoginError = false; // Variable to show hide the login page error
     showAddCredentialsError = false; // Variable to show hide the login page error
     showAddCredentials = false; // Variable to show hide the add credentials option
-    displayDate; // Variable to hold the date
+    displayDate; // Variable to hold the date 
     header_Logo = logo; // Variable to hold the header logo
     /**
      * Variable section for toast start
