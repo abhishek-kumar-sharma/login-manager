@@ -14,17 +14,19 @@ public with sharing class dataTableCtrl {
         UserMessageHandler userMessageHandler = new UserMessageHandler();
         try {
             if (String.isNotBlank(objectApiName) && String.isNotBlank(loggedInUserId)) {
-                String fieldToQuery = String.join(new List<String>( Schema.getGlobalDescribe().get(objectApiName).getDescribe().fields.getMap().keySet()), ',');
+                
+                /* String fieldToQuery = String.join(new List<String>( Schema.getGlobalDescribe().get(objectApiName).getDescribe().fields.getMap().keySet()), ','); */
+                String fieldToQuery = 'Id,Project_Name__c,Username__c,Password__c,Is_Salesforce_Credentials__c,Is_Sandbox__c,Is_Community_User__c,Org_name__c,Validity__c';
                 String query = 'SELECT '+fieldToQuery+' FROM ' + objectApiName;
                 if (viewAllPermissionForUser) {
-                    query = query+' WITH SECURITY_ENFORCED LIMIT 10000';
+                    query = query+' LIMIT 200';
                 }else {
-                    query = query+' WHERE user_login__c =\''+loggedInUserId+'\' WITH SECURITY_ENFORCED LIMIT 10000';
+                    query = query+' WHERE user_login__c =\''+loggedInUserId+'\' LIMIT 200';
                 }
                 List<sObject> dataListToReturn = new List<sObject>();
                 dataListToReturn = Database.query(query);
                 userMessageHandler.isSuccess = true;
-                userMessageHandler.errorReason = null;
+                userMessageHandler.errorReason = null; 
                 userMessageHandler.errorMessage = null;
                 userMessageHandler.responseData = dataListToReturn;
                 userMessageHandler.userInput = objectApiName;

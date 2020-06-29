@@ -1,56 +1,64 @@
 <template>
-   
+
     <div class="slds-m-top--small slds-box">
-         <!-- header for the table start -->
-        <lightning-layout multiple-rows="true">
-            <lightning-layout-item size="2" flexibility="auto, no-grow">
-                <div class="slds-shrink display-flex align-item-center">
-                    Show
-                    <div class="slds-form-element slds-m-left--xx-small slds-m-right--xx-small">
-                        <div class="slds-form-element__control slds-grow">
-                            <div class="slds-select_container">
-                                <select class="slds-select" onclick={handleShowEntriesChange} disabled={disableEntriesOptions} name="showEntries">
-                                    <template for:each = {entriesOptions} for:item="entriesOption">
-                                        <option key={entriesOption.value} selected={entriesOption.selected} value={entriesOption.value}>{entriesOption.label}</option>
-                                     </template>
-                                </select></div>
+        <!-- header for the table start -->
+        <div id="data-table-header">
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item size="2" flexibility="auto, no-grow">
+                    <div class="slds-shrink display-flex align-item-center">
+                        Show
+                        <div class="slds-form-element slds-m-left--xx-small slds-m-right--xx-small">
+                            <div class="slds-form-element__control slds-grow">
+                                <div class="slds-select_container">
+                                    <select class="slds-select" onclick={handleShowEntriesChange}
+                                        disabled={disableEntriesOptions} name="showEntries">
+                                        <template for:each={entriesOptions} for:item="entriesOption">
+                                            <option key={entriesOption.value} selected={entriesOption.selected}
+                                                value={entriesOption.value}>{entriesOption.label}</option>
+                                        </template>
+                                    </select></div>
+                            </div>
                         </div>
+                        entries
                     </div>
-                    entries
-                </div>
-            </lightning-layout-item>
-
-            <lightning-layout-item size="8">
-                <strong class="slds-text-title_caps slds-align_absolute-center slds-truncate">
-                    {tableHeading}
-                </strong>
-            </lightning-layout-item>
-            <lightning-layout-item size="2" class="display-flex">
-                <lightning-input class="searchString slds-p-left--small" label="Search" variant="label-hidden"
-                    name="searchString" value={searchString} placeholder="search" disabled={disableSearchBox}
-                    onkeyup={handleSearchStringChange}>
-                </lightning-input>
-                <lightning-button-icon icon-name="utility:refresh" variant="brand" class="slds-m-left--xx-small" alternative-text="Refresh" onclick={handleRefreshTableContent}></lightning-button-icon>
-            </lightning-layout-item>
-        </lightning-layout>
-         <!-- header for the table end -->
-
-         <!-- Lightning data table section start -->
-         <div id="data-table-container">
-             <lightning-layout class="slds-m-top--x-small">
-                <lightning-layout-item size="12">
-                    <lightning-datatable
-                    key-field="Id"
-                    data={tableResponseData}
-                    columns={dataTableFieldForColumn}>
-                        
-                    </lightning-datatable>
                 </lightning-layout-item>
-             </lightning-layout>
 
+                <lightning-layout-item size="8">
+                    <strong class="slds-text-title_caps slds-align_absolute-center slds-truncate">
+                        {tableHeading}
+                    </strong>
+                </lightning-layout-item>
+                <lightning-layout-item size="2" class="display-flex">
+                    <lightning-input class="searchString slds-p-left--small" label="Search" variant="label-hidden"
+                        name="searchString" value={searchString} placeholder="search" disabled={disableSearchBox}
+                        onkeyup={handleSearchStringChange}>
+                    </lightning-input>
+                    <lightning-button-icon icon-name="utility:refresh" variant="brand" class="slds-m-left--xx-small"
+                        alternative-text="Refresh" onclick={handleRefreshTableContent}></lightning-button-icon>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+        <!-- header for the table end -->
 
-         </div>
-         <!-- Lightning data table section end -->
+        <!-- Lightning data table section start -->
+        <div id="data-table-body">
+            <lightning-layout class="slds-m-top--x-small">
+                <lightning-layout-item size="12">
+                    <div style="height : 350px;">
+                        <lightning-datatable key-field="Id" data={tableResponseData} columns={dataTableFieldForColumn}
+                            hide-checkbox-column="true" show-row-number-column="true">
+                        </lightning-datatable>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+        <!-- Lightning data table section end -->
+
+        <!-- Footer for the table start -->
+        <div id="data-table-footer">
+
+        </div>
+        <!-- Footer for the table end -->
 
 
     </div>

@@ -4,19 +4,20 @@ import getTableDataFrom_Apex from '@salesforce/apex/dataTableCtrl.getDataForTabl
 export default class DataTableLwc extends LightningElement {
     @api flexipageRegionWidth;
     @api viewAllPermissionForUser;
-    @api loggedInUserId;
+    @api loggedInUserId ;
     tableHeading = ''; // table heading
 
     //Entries controlling attribute section start
     disableEntriesOptions = false; // enable/disable the select box for entries
     defaultNoOfEntriesToShow = '5'; // No of entries to show the default
     @track entriesOptions = [
-        { label: '5', value: '5' },
-        { label: '10', value: '10', selected: true },
+        { label: '5', value: '5' , selected: true},
+        { label: '10', value: '10' },
         { label: '50', value: '50' },
         { label: '100', value: '100' }
     ]; // entries select options values
     //Entries controlling attribute section end
+
 
     // Search input box controlling attribute section start
     searchString; // Attribute to hold the value for search input
@@ -97,11 +98,10 @@ export default class DataTableLwc extends LightningElement {
             })
             .then( result => {
                 console.log('result ==>',JSON.stringify(result));
-                
+                //this.tableResponseData = result.responseData; 
             })
             .catch(error => {
                 console.error('Error while getting data from apex in data table connected call back. \n Message ::',error);
-                
             })
         } catch (error) {
             console.error('Error occurred while initalizing the data table. \n Message ::', error);

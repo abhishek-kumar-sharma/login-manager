@@ -5,8 +5,8 @@ import add_Credentials_Apex from '@salesforce/apex/loginManagerCtrl.addNewLoginC
 export default class LoginManagerLwc extends LightningElement {
 
     // Data table controlling attributes start here
-    dataTableViewAllPermissionForUserRecords = 'Allowed';
-    dataTableLoggedInUserId;
+    dataTableViewAllPermissionForUserRecords = true;
+    dataTableLoggedInUserId = 'dummy';
     // Data table controlling attributes end here
 
     showHeader = true; // Variable to show hide the page header
@@ -17,6 +17,7 @@ export default class LoginManagerLwc extends LightningElement {
     showAddCredentials = false; // Variable to show hide the add credentials option
     displayDate; // Variable to hold the date 
     header_Logo = logo; // Variable to hold the header logo
+    
     /**
      * Variable section for toast start
      */
@@ -187,7 +188,8 @@ export default class LoginManagerLwc extends LightningElement {
                         this.showHeader = true;
                         this.login_Credential['User_Login__c'] = result.Id;
                         this.dataTableLoggedInUserId = result.Id;
-                        this.dataTableViewAllPermissionForUserRecords = 'Allowed';
+                        //this.dataTableViewAllPermissionForUserRecords = 'Allowed';
+                        this.dataTableViewAllPermissionForUserRecords = true;
                         this.showDataTable = true;
                     }
                     console.log('String ::', JSON.stringify(result));
