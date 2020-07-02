@@ -44,9 +44,29 @@
         <div id="data-table-body">
             <lightning-layout class="slds-m-top--x-small">
                 <lightning-layout-item size="12">
-                    <div style="height : 350px;">
-                        <lightning-datatable key-field="Id" data={tableResponseData} columns={dataTableFieldForColumn}
-                            hide-checkbox-column="true" show-row-number-column="true">
+                    <div style="height : 160px;">
+                        <!-- Data table internal error section start -->
+                        <template if:true={showTableError}>
+                            <div class="slds-grid">
+                                <div class="slds-size_1-of-4">
+                                </div>
+                                <div class="slds-size_2-of-4">
+                                    <div class="">
+                                        <div class="error-border slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error"
+                                            role="alert">
+                                            <h2>
+                                                {tableErrorMessage} 
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-4">
+                                </div>
+                            </div>
+                        </template>
+                        <!-- Data table internal error end -->
+                        <lightning-datatable key-field="Id" data={tableDataFiltered} columns={dataTableFieldForColumn}
+                            is-loading={showSpinner} hide-checkbox-column="true" show-row-number-column="true">
                         </lightning-datatable>
                     </div>
                 </lightning-layout-item>
@@ -56,7 +76,26 @@
 
         <!-- Footer for the table start -->
         <div id="data-table-footer">
+            <lightning-layout horizontal-align="spread">
+                <lightning-layout-item class="slds-p-vertical_small slds-text-align_left slds-p-left_small slds-truncate">
+                    Showing {fromEntries} to {toEntries} out of {tableResponseData.length} entries
+                </lightning-layout-item>
 
+                <lightning-layout-item class="slds-p-vertical_small slds-text-align_left slds-p-left_small slds-truncate">
+                    Pages:
+                </lightning-layout-item>
+
+                <lightning-layout-item class="slds-p-vertical_small slds-text-align_left slds-p-left_small slds-truncate">
+                    <lightning-button label="First" icon-name="utility:left" class="slds-m-right--xx-small" icon-position="left"
+                        onclick={goToFirstPage}></lightning-button>
+                    <lightning-button label="Previous" icon-name="utility:chevronleft" icon-position="left" class="slds-m-right--xx-small" 
+                        onclick={goToPreviousPage}></lightning-button>
+                    <lightning-button label="Next" icon-name="utility:chevronright" icon-position="left" class="slds-m-right--xx-small"
+                        onclick={goToNextPage}></lightning-button>
+                    <lightning-button label="Last" icon-name="utility:right" icon-position="left" class="slds-m-right--xx-small"
+                        onclick={goToLastPage}></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
         </div>
         <!-- Footer for the table end -->
 

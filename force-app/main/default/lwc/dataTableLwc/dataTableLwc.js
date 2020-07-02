@@ -4,17 +4,25 @@ import getTableDataFrom_Apex from '@salesforce/apex/dataTableCtrl.getDataForTabl
 export default class DataTableLwc extends LightningElement {
     @api flexipageRegionWidth;
     @api viewAllPermissionForUser;
-    @api loggedInUserId ;
+    @api loggedInUserId;
     tableHeading = ''; // table heading
 
+
     //Entries controlling attribute section start
+    fromEntries = 1; // from entry
+    toEntries = 1; // to entry
+    currentPage = 1; // to entry
     disableEntriesOptions = false; // enable/disable the select box for entries
     defaultNoOfEntriesToShow = '5'; // No of entries to show the default
+    totalNumberOfRows;
+    totalPages;
     @track entriesOptions = [
-        { label: '5', value: '5' , selected: true},
+        { label: '5', value: '5', selected: true },
         { label: '10', value: '10' },
         { label: '50', value: '50' },
-        { label: '100', value: '100' }
+        { label: '100', value: '100' },
+        { label: '200', value: '200' },
+        { label: '500', value: '500' }
     ]; // entries select options values
     //Entries controlling attribute section end
 
@@ -25,12 +33,13 @@ export default class DataTableLwc extends LightningElement {
     // Search input box controlling attribute section end
 
     @track tableResponseData = {}; // table response data
+    @track tableDataFiltered = {}; // table response data
     dataTableFieldForColumn = [
         {
             label: 'Project Name',
-            fieldName:'Project_Name__c',
-            type:'text',
-            sortable:true
+            fieldName: 'Project_Name__c',
+            type: 'text',
+            sortable: true
         },
         {
             label: 'Org Name',
@@ -80,9 +89,12 @@ export default class DataTableLwc extends LightningElement {
             type: 'checkbox',
             sortable: true
         }
-        
+
     ]; // table columns
     dataTableObjectApiName = 'Login_Credential__c'; // object API name
+    showSpinner = false;
+    showTableError = false;
+    tableErrorMessage;
 
     /**
      * Connected call back to initialize the values
@@ -91,22 +103,72 @@ export default class DataTableLwc extends LightningElement {
      */
     connectedCallback() {
         try {
+            this.showSpinner = true;
             getTableDataFrom_Apex({
-                objectApiName : this.dataTableObjectApiName,
-                viewAllPermissionForUser : this.viewAllPermissionForUser,
-                loggedInUserId : this.loggedInUserId
+                objectApiName: this.dataTableObjectApiName,
+                viewAllPermissionForUser: this.viewAllPermissionForUser,
+                loggedInUserId: this.loggedInUserId
             })
-            .then( result => {
-                console.log('result ==>',JSON.stringify(result));
-                //this.tableResponseData = result.responseData; 
-            })
-            .catch(error => {
-                console.error('Error while getting data from apex in data table connected call back. \n Message ::',error);
-            })
+                .then(result => {
+                    if (result.isSuccess === true) {
+                        this.showTableError = false;
+                        this.showSpinner = false;
+                        this.tableResponseData = result.responseData; 
+                        this.totalNumberOfRows = result.responseData.length; 
+                        this.tableDataFiltered = result.responseData; 
+                        // Entries cal
+                        this.fromEntries = 1;
+                        if(this.toEntries < this.totalNumberOfRows){
+                            this.toEntries = this.defaultNoOfEntriesToShow;
+                        }else{
+                            this.toEntries = this.totalNumberOfRows;
+                        }
+                        // calling show record
+                        this.showRecords();
+                    } else {
+                        this.showSpinner = false;
+                        this.showTableError = true;
+                        this.disableEntriesOptions = true;
+                        this.disableSearchBox = true;
+                        this.tableErrorMessage = result.errorMessage;
+                    }
+
+                })
+                .catch(error => {
+                    console.error('Error while getting data from apex in data table connected call back. \n Message ::', error);
+                })
         } catch (error) {
             console.error('Error occurred while initalizing the data table. \n Message ::', error);
         }
     }
+
+
+    showRecords(){
+        try {
+            console.log('Show record called');
+            var finalRecords = [];
+            for(var i = 1; i<= this.defaultNoOfEntriesToShow; i++){
+                finalRecords.push(this.tableResponseData[i-1]);
+            }
+            console.log('finalRecords led',finalRecords);
+            this.currentPage = 1;
+            if(this.tableResponseData.length === 0){
+                this.fromEntries = 0;
+                this.currentPage = 0;
+            }else{
+                this.fromEntries = 1;
+            }
+
+            this.totalPages = Math.ceil(finalRecords.length) / this.defaultNoOfEntriesToShow;
+            this.tableDataFiltered = finalRecords;
+        } catch (error) {
+            console.error('Error in show record.s \n Message ::',error);
+            
+        }
+    }
+
+
+
 
     /**
      * Method to handle the entries option change
@@ -117,6 +179,8 @@ export default class DataTableLwc extends LightningElement {
         try {
             if (event.target.value !== null && event.target.value !== undefined) {
                 this.defaultNoOfEntriesToShow = event.target.value;
+                console.log('default entries to show ::',this.defaultNoOfEntriesToShow);
+                this.showRecords();
             }
         } catch (error) {
             console.error('Error while handling the change entries. \n Message ::', error);

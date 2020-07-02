@@ -25,12 +25,22 @@ public with sharing class dataTableCtrl {
                 }
                 List<sObject> dataListToReturn = new List<sObject>();
                 dataListToReturn = Database.query(query);
-                userMessageHandler.isSuccess = true;
-                userMessageHandler.errorReason = null; 
-                userMessageHandler.errorMessage = null;
-                userMessageHandler.responseData = dataListToReturn;
-                userMessageHandler.userInput = objectApiName;
-                userMessageHandler.successMessage = 'Able to fetch record.';
+                if (dataListToReturn.isEmpty()) { 
+                    userMessageHandler.isSuccess = false;
+                    userMessageHandler.errorReason = 'No Record Found.'; 
+                    userMessageHandler.errorMessage = 'No Record Found.';
+                    userMessageHandler.responseData = dataListToReturn;
+                    userMessageHandler.userInput = objectApiName;
+                    userMessageHandler.successMessage = 'Unable to fetch record.';
+                }else{
+                    userMessageHandler.isSuccess = true;
+                    userMessageHandler.errorReason = null; 
+                    userMessageHandler.errorMessage = null;
+                    userMessageHandler.responseData = dataListToReturn;
+                    userMessageHandler.userInput = objectApiName;
+                    userMessageHandler.successMessage = 'Able to fetch record.';
+                }
+                
             }else {
                 userMessageHandler.isSuccess = false;
                 userMessageHandler.errorReason = 'Object Name Not Found';
