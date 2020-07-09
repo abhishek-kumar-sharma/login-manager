@@ -1,6 +1,14 @@
 <template>
 
     <div class="slds-m-top--small slds-box">
+        <!-- Spinner section start -->
+        <div id="spinner-section">
+            <template if:true={externalSpinner}>
+                <lightning-spinner alternative-text="Loading ..." variant="brant"></lightning-spinner>
+            </template>
+        </div>
+        <!-- Spinner section end -->
+
         <!-- header for the table start -->
         <div id="data-table-header">
             <lightning-layout multiple-rows="true">
@@ -10,7 +18,7 @@
                         <div class="slds-form-element slds-m-left--xx-small slds-m-right--xx-small">
                             <div class="slds-form-element__control slds-grow">
                                 <div class="slds-select_container">
-                                    <select class="slds-select" onclick={handleShowEntriesChange}
+                                    <select class="slds-select" onchange={handleShowEntriesChange}
                                         disabled={disableEntriesOptions} name="showEntries">
                                         <template for:each={entriesOptions} for:item="entriesOption">
                                             <option key={entriesOption.value} selected={entriesOption.selected}
@@ -44,7 +52,7 @@
         <div id="data-table-body">
             <lightning-layout class="slds-m-top--x-small">
                 <lightning-layout-item size="12">
-                    <div style="height : 160px;">
+                    <div style="height : 360px;">
                         <!-- Data table internal error section start -->
                         <template if:true={showTableError}>
                             <div class="slds-grid">
@@ -65,7 +73,7 @@
                             </div>
                         </template>
                         <!-- Data table internal error end -->
-                        <lightning-datatable key-field="Id" data={tableDataFiltered} columns={dataTableFieldForColumn}
+                        <lightning-datatable key-field="Id" data={tableDataFiltered} columns={dataTableFieldForColumn} onsort={updateDataAfterSort} sorted-by={sortedBy} sorted-direction={sortedDirection}
                             is-loading={showSpinner} hide-checkbox-column="true" show-row-number-column="true">
                         </lightning-datatable>
                     </div>
@@ -82,18 +90,18 @@
                 </lightning-layout-item>
 
                 <lightning-layout-item class="slds-p-vertical_small slds-text-align_left slds-p-left_small slds-truncate">
-                    Pages:
+                    Pages: {currentPage} / {totalPages}
                 </lightning-layout-item>
 
                 <lightning-layout-item class="slds-p-vertical_small slds-text-align_left slds-p-left_small slds-truncate">
                     <lightning-button label="First" icon-name="utility:left" class="slds-m-right--xx-small" icon-position="left"
-                        onclick={goToFirstPage}></lightning-button>
+                        onclick={goToFirstPage} disabled={disableFirstButton}></lightning-button>
                     <lightning-button label="Previous" icon-name="utility:chevronleft" icon-position="left" class="slds-m-right--xx-small" 
-                        onclick={goToPreviousPage}></lightning-button>
-                    <lightning-button label="Next" icon-name="utility:chevronright" icon-position="left" class="slds-m-right--xx-small"
-                        onclick={goToNextPage}></lightning-button>
-                    <lightning-button label="Last" icon-name="utility:right" icon-position="left" class="slds-m-right--xx-small"
-                        onclick={goToLastPage}></lightning-button>
+                        onclick={goToPreviousPage} disabled={disablePreviousButton}></lightning-button>
+                    <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right" class="slds-m-right--xx-small"
+                        onclick={goToNextPage} disabled={disableNextButton}></lightning-button>
+                    <lightning-button label="Last" icon-name="utility:right" icon-position="right" class="slds-m-right--xx-small"
+                        onclick={goToLastPage} disabled={disableLastButton}></lightning-button>
                 </lightning-layout-item>
             </lightning-layout>
         </div>
