@@ -336,8 +336,9 @@ export default class DataTableLwc extends LightningElement {
                 this.disablePreviousButton = true;
                 return;
             }else{
-                this.disableFirstButton = false;
-                this.disablePreviousButton = false;
+                this.disableNextButton = false;
+                this.disableLastButton = false;
+
             }
         } catch (error) {
             console.error('Error occurred while handling the page change to previous. \n Message ::', error);

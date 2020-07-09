@@ -76,5 +76,4 @@ public class UserMessageHandler {
     @AuraEnabled public String userInput;
 }
 
-
 }
